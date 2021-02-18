@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework.authentication import TokenAuthentication
+
 from profiles_api.serializers import UserSerializer
+from profiles_api.permissions import UpdateOwnProfile
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -9,4 +12,5 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    Authentication_classes = [TokenAuthentication,]
+    permission_classes = [permissions.IsAuthenticated,UpdateOwnProfile,]
